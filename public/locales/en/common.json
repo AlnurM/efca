@@ -25,5 +25,9 @@
   },
   "faq": {
     "head": "Frequently asked questions"
+  },
+  "vacancy": {
+    "head": "Vacancy",
+    "cta": "More"
   }
 }
