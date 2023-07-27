@@ -1,0 +1,26 @@
+{
+  "name": {
+    "first_part": "EURASIA FUND",
+    "second_part": "OF CENTRAL ASIA",
+    "third_part": "IN KAZAKHSTAN"
+  },
+  "menu": {
+    "fund": "About the fund",
+    "activities": "Our activities",
+    "materials": "Materials",
+    "join": "Join Us"
+  },
+  "footer": {
+    "offer": "Subscribe to the newsletter",
+    "placeholder": "Enter your Email",
+    "cta": "Subscribe",
+    "address": "050060, Almaty, st. Zharokova, 284/3",
+    "phone": "Phone",
+    "socials": "We are in social networks"
+  },
+  "team": {
+    "head": "Board of trustees | Our employees",
+    "trustees": "Board of trustees",
+    "employees": "Our employees"
+  }
+}
