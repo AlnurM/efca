@@ -40,7 +40,7 @@ const Team = ({ trustees, employees }) => {
           <h1 className="text-3xl font-bold uppercase text-primaryDark">{t('team.trustees')}</h1>
           <Slider {...settings} className="mt-10">
             {trustees.map(item => (
-              <div>
+              <div key={item.id}>
                 <div className="flex flex-col justify-center items-center">
                   <div className="relative overflow-hidden border-4 border-secondary w-[140px] h-[140px] rounded-full duration-150 hover:border-primary">
                     <Image
@@ -62,7 +62,7 @@ const Team = ({ trustees, employees }) => {
           <h2 className="text-3xl font-bold uppercase text-primaryDark">{t('team.employees')}</h2>
           <div className="mt-10 w-full flex flex-wrap">
             {employees.map((item) => (
-              <div className={clsx('mb-12 px-3 w-[calc(100%/6)] flex flex-col justify-start items-center')}>
+              <div key={item.id} className={clsx('mb-12 px-3 w-[calc(100%/6)] flex flex-col justify-start items-center')}>
                 <div className="relative overflow-hidden border-4 border-secondary w-[140px] h-[140px] rounded-full duration-150 hover:border-primary">
                   <Image
                     src={item.image}
