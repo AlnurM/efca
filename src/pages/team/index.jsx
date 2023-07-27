@@ -30,6 +30,7 @@ const settings = {
 }
 const Team = ({ trustees, employees }) => {
   const { t } = useTranslation()
+  console.log('teams')
   return (
     <>
       <Head>
