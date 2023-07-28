@@ -10,7 +10,7 @@ const VacancyDetails = ({ data }) => {
   return (
     <>
       <Head>
-        <title>{t('vacancy.head') || ''} | {data.title || ''}</title>
+        <title>{t('vacancy.head') || ''} | {data?.title || ''}</title>
       </Head>
       <section className="py-10">
         <Container shrink className="flex-col">
@@ -38,7 +38,7 @@ export async function getStaticPaths(context) {
   const paths = vacancies.map((item) => ({ params: { id: item.id.toString() } }));
   return {
     paths,
-    fallback: true,
+    fallback: 'blocking',
   };
 }
 
