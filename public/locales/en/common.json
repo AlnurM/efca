@@ -28,6 +28,7 @@
   },
   "vacancy": {
     "head": "Vacancy",
-    "cta": "More"
+    "cta": "More",
+    "active": "Active"
   }
 }

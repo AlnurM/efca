@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { Container } from '@/shared/ui'
@@ -11,7 +12,7 @@ const Vacancy = ({ vacancies }) => {
       <Head>
         <title>{t('vacancy.head')}</title>
       </Head>
-      <section className="py-10 px-12 flex">
+      <section className="py-10">
         <Container>
           <h1 className="flex-[2] text-3xl font-bold text-primaryDark uppercase">{t('vacancy.head')}</h1>
           <div className="flex-[6] ml-12">
@@ -25,9 +26,11 @@ const Vacancy = ({ vacancies }) => {
                   <div className="px-7 py-3 rounded-[40px] bg-secondaryDark font-semibold text-primary">
                     с {item.date_from} по {item.date_to}
                   </div>
-                  <button className="ml-6 px-7 py-3 rounded-[40px] outline-none bg-primary text-white font-semibold">
-                    {t('vacancy.cta')}
-                  </button>
+                  <Link href={`/vacancy/${item.id}`} passHref>
+                    <div className="ml-6 px-7 py-3 rounded-[40px] bg-primary text-white font-semibold">
+                      {t('vacancy.cta')}
+                    </div>
+                  </Link>
                 </div>
               </div>
             ))}
