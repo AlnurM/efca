@@ -5,10 +5,70 @@
     "third_part": "IN KAZAKHSTAN"
   },
   "menu": {
-    "fund": "About the fund",
-    "activities": "Our activities",
-    "materials": "Materials",
-    "join": "Join Us"
+    "fund": {
+      "root": "About the fund",
+      "about": {
+        "root": "About us",
+        "desc": "Our mission, history"
+      },
+      "team": {
+        "root": "Command",
+        "desc": "Staff and board of trustees"
+      },
+      "annual-reports": {
+        "root": "Annual reports",
+        "desc": "Documentation of our activities"
+      },
+      "faq": {
+        "root": "FAQ",
+        "desc": "Current Issues"
+      }
+    },
+    "activities": {
+      "root": "Our activities",
+      "projects": {
+        "root": "Projects"
+      },
+      "success-stories": {
+        "root": "Success stories"
+      },
+      "grants-competetions": {
+        "root": "Grants and competitions"
+      }
+    },
+    "materials": {
+      "root": "Materials",
+      "for-business": {
+        "root": "For business"
+      },
+      "for-ngo": {
+        "root": "For NGOs"
+      },
+      "news": {
+        "root": "News"
+      },
+      "researches": {
+        "root": "Researches"
+      },
+      "benefits": {
+        "root": "Benefits"
+      }
+    },
+    "join": {
+      "root": "Join Us",
+      "vacancy": {
+        "root": "Vacancies"
+      },
+      "donors": {
+        "root": "Donors"
+      },
+      "partners": {
+        "root": "Partners"
+      },
+      "contacts": {
+        "root": "Contacts"
+      }
+    }
   },
   "footer": {
     "offer": "Subscribe to the newsletter",

@@ -35,11 +35,11 @@ export async function getStaticPaths(context) {
     headers: { 'Accept-Language' : locale }
   })
   const { vacancies } = response.data
-  const paths = vacancies.map((item) => ({ params: { id: item.id.toString() } }));
+  const paths = vacancies.map((item) => ({ params: { id: item.id.toString() } }))
   return {
     paths,
-    fallback: 'blocking',
-  };
+    fallback: 'blocking'
+  }
 }
 
 export async function getStaticProps(context) {

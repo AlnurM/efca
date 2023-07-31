@@ -30,7 +30,6 @@ const settings = {
 }
 const Team = ({ trustees, employees }) => {
   const { t } = useTranslation()
-  console.log('teams')
   return (
     <>
       <Head>
@@ -64,7 +63,7 @@ const Team = ({ trustees, employees }) => {
           <div className="mt-10 w-full flex flex-wrap">
             {employees.map((item) => (
               <div key={item.id} className={clsx('mb-12 px-3 w-[calc(100%/6)] flex flex-col justify-start items-center')}>
-                <div className="relative overflow-hidden border-4 border-secondary w-[140px] h-[140px] rounded-full duration-150 hover:border-primary">
+                <div className="relative overflow-hidden border-4 border-white w-[140px] h-[140px] rounded-full duration-150 hover:border-primary">
                   <Image
                     src={item.image}
                     alt={item.full_name}
