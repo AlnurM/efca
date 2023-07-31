@@ -6,7 +6,6 @@ import { api } from '@/shared/api'
 
 const VacancyDetails = ({ data }) => {
   const { t } = useTranslation()
-  console.log(data)
   return (
     <>
       <Head>
@@ -35,7 +34,11 @@ export async function getStaticPaths(context) {
     headers: { 'Accept-Language' : locale }
   })
   const { vacancies } = response.data
-  const paths = vacancies.map((item) => ({ params: { id: item.id.toString() } }))
+  const { i18n } = require('next-i18next.config')
+  const locales = i18n.locales
+  const paths = locales.flatMap((locale) =>
+    vacancies.map((item) => ({ params: { id: item.id.toString() }, locale }))
+  )
   return {
     paths,
     fallback: 'blocking'
