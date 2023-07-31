@@ -78,51 +78,9 @@ const Header = ({ locale }) => {
           </div>
         </Link>
         <div className="relative w-[704px] flex justify-between">
-          {routes.map(route => {
-            const [isHovered, setIsHovered] = useState(false)
-            return (
-              <div 
-                key={route.path}
-                className="py-3"
-                onMouseOver={() => setIsHovered(true)}
-                onMouseOut={() => setIsHovered(false)}
-              >
-                <Link href={route.path}>
-                  <div className="flex items-center">
-                    <div className="w-4 h-4 rounded-full border-4 border-primaryDark font-medium">
-                      <div className={clsx('w-full h-full', {
-                        ['bg-primaryDark']: router.route.split('/').filter(Boolean).includes(route.path.replace('/', '')) || ((!router.route.split('/').filter(Boolean).length && !route.path.replace('/', '')))
-                      })} />
-                    </div>
-                    <span className="ml-2 text-black uppercase">{t('menu.' + route.labelKey + '.root')}</span>
-                  </div>
-                </Link>
-                {isHovered && (
-                  <div 
-                    className="absolute top-12 left-0 right-0 mx-auto p-6 w-fit bg-white rounded shadow flex animate-[growDown_0.3s_ease-in-out_forwards]"
-                    style={{ transformOrigin: 'top center' }}
-                  >
-                    {route.children.map((child, index) => (
-                      <Link key={child.path} href={child.path}>
-                        <div className={clsx('p-3 w-fit rounded bg-secondary whitespace-nowrap flex flex-col', {
-                          ['ml-6']: index > 0
-                        })}>
-                          <span className="pb-px text-sm font-bold uppercase border-b border-black">
-                            {t(`menu.${route.labelKey}.${child.labelKey}.root`)}
-                          </span>
-                          {child.descKey && (
-                            <span className="mt-2 whitespace-pre-wrap">
-                              {t(`menu.${route.labelKey}.${child.labelKey}.${child.descKey}`)}
-                            </span>
-                          )}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )
-          })}
+          {routes.map(route => (
+            <MenuItem key={route.path} route={route} />
+          ))}
         </div>
         <div className="flex">
           <Link href={router.asPath} locale={'kz'}>
@@ -152,6 +110,53 @@ const Header = ({ locale }) => {
         </div>
       </Container>
     </header>
+  )
+}
+
+const MenuItem = ({ route }) => {
+  const router = useRouter()
+  const { t } = useTranslation()
+  const [isHovered, setIsHovered] = useState(false)
+  return (
+    <div 
+      className="py-3"
+      onMouseOver={() => setIsHovered(true)}
+      onMouseOut={() => setIsHovered(false)}
+    >
+      <Link href={route.path}>
+        <div className="flex items-center">
+          <div className="w-4 h-4 rounded-full border-4 border-primaryDark font-medium">
+            <div className={clsx('w-full h-full', {
+              ['bg-primaryDark']: router.route.split('/').filter(Boolean).includes(route.path.replace('/', '')) || ((!router.route.split('/').filter(Boolean).length && !route.path.replace('/', '')))
+            })} />
+          </div>
+          <span className="ml-2 text-black uppercase">{t('menu.' + route.labelKey + '.root')}</span>
+        </div>
+      </Link>
+      {isHovered && (
+        <div 
+          className="absolute top-12 left-0 right-0 mx-auto p-6 w-fit bg-white rounded shadow flex animate-[growDown_0.3s_ease-in-out_forwards]"
+          style={{ transformOrigin: 'top center' }}
+        >
+          {route.children.map((child, index) => (
+            <Link key={child.path} href={child.path}>
+              <div className={clsx('p-3 w-fit rounded bg-secondary whitespace-nowrap flex flex-col', {
+                ['ml-6']: index > 0
+              })}>
+                <span className="pb-px text-sm font-bold uppercase border-b border-black">
+                  {t(`menu.${route.labelKey}.${child.labelKey}.root`)}
+                </span>
+                {child.descKey && (
+                  <span className="mt-2 whitespace-pre-wrap">
+                    {t(`menu.${route.labelKey}.${child.labelKey}.${child.descKey}`)}
+                  </span>
+                )}
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 
