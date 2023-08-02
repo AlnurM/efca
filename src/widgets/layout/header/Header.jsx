@@ -8,11 +8,10 @@ import clsx from 'clsx'
 const routes = [
   { 
     labelKey: 'fund', 
-    path: '/',
     children: [
       { 
-        labelKey: 'about', 
-        path: '/about',
+        labelKey: 'about-us', 
+        path: '/about-us',
         descKey: 'desc'
       },
       { 
@@ -34,7 +33,6 @@ const routes = [
   },
   { 
     labelKey: 'activities', 
-    path: '/activities',
     children: [
       { labelKey: 'projects', path: '/projects' },
       { labelKey: 'success-stories', path: '/success-stories' },
@@ -43,7 +41,6 @@ const routes = [
   },
   { 
     labelKey: 'materials', 
-    path: '/materials',
     children: [
       { labelKey: 'for-business', path: '/for-business' },
       { labelKey: 'for-ngo', path: '/for-ngo' },
@@ -54,7 +51,6 @@ const routes = [
   },
   { 
     labelKey: 'join', 
-    path: '/join',
     children: [
       { labelKey: 'vacancy', path: '/vacancy' },
       { labelKey: 'donors', path: '/donors' },
@@ -66,6 +62,7 @@ const routes = [
 const Header = ({ locale }) => {
   const router = useRouter()
   const { t } = useTranslation()
+  
   return (
     <header>
       <Container className="flex items-center justify-between">
@@ -73,13 +70,13 @@ const Header = ({ locale }) => {
           <div className="py-6 flex items-center">
             <Icon src="/assets/logo.png" width={40} height={58} />
             <span className="ml-4 leading-5 font-semibold text-black">
-              {t('name.first_part')} <br/> {t('name.second_part')} <br/> {t('name.third_part')}
+              {t('name.first-part')} <br/> {t('name.second-part')} <br/> {t('name.third-part')}
             </span>
           </div>
         </Link>
         <div className="relative w-[704px] flex justify-between">
           {routes.map(route => (
-            <MenuItem key={route.path} route={route} />
+            <MenuItem key={route.labelKey} route={route} />
           ))}
         </div>
         <div className="flex">
@@ -123,19 +120,17 @@ const MenuItem = ({ route }) => {
       onMouseOver={() => setIsHovered(true)}
       onMouseOut={() => setIsHovered(false)}
     >
-      <Link href={route.path}>
-        <div className="flex items-center">
-          <div className="w-4 h-4 rounded-full border-4 border-primaryDark font-medium">
-            <div className={clsx('w-full h-full', {
-              ['bg-primaryDark']: router.route.split('/').filter(Boolean).includes(route.path.replace('/', '')) || ((!router.route.split('/').filter(Boolean).length && !route.path.replace('/', '')))
-            })} />
-          </div>
-          <span className="ml-2 text-black uppercase">{t('menu.' + route.labelKey + '.root')}</span>
+      <div className="flex items-center cursor-pointer">
+        <div className="w-4 h-4 rounded-full border-4 border-primaryDark font-medium">
+          <div className={clsx('w-full h-full', {
+            ['bg-primaryDark']: routes?.find(f => f.labelKey === route.labelKey)?.children?.find(f => f.path === router.route)
+          })} />
         </div>
-      </Link>
+        <span className="ml-2 text-black uppercase">{t('menu.' + route.labelKey + '.root')}</span>
+      </div>
       {isHovered && (
         <div 
-          className="absolute top-12 left-0 right-0 mx-auto p-6 w-fit bg-white rounded shadow flex animate-[growDown_0.3s_ease-in-out_forwards]"
+          className="z-50 absolute top-12 left-0 right-0 mx-auto p-6 w-fit bg-white rounded shadow flex animate-[growDown_0.3s_ease-in-out_forwards]"
           style={{ transformOrigin: 'top center' }}
         >
           {route.children.map((child, index) => (

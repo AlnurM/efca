@@ -30,6 +30,16 @@ module.exports = {
           '80%': { transform: 'scaleY(1.1)' },
           '100%': { transform: 'scaleY(1)' },
         },
+        growUp: {
+          '0%': {
+            opacity: '0%',
+            transform: 'translateY(0px)'
+          },
+          '100%': {
+            opacity: '100%',
+            transform: 'translateY(-8px)'
+          }
+        }
       }
     },
   },

@@ -1,13 +1,13 @@
 {
   "name": {
-    "first_part": "EURASIA FUND",
-    "second_part": "OF CENTRAL ASIA",
-    "third_part": "IN KAZAKHSTAN"
+    "first-part": "EURASIA FUND",
+    "second-part": "OF CENTRAL ASIA",
+    "third-part": "IN KAZAKHSTAN"
   },
   "menu": {
     "fund": {
       "root": "About the fund",
-      "about": {
+      "about-us": {
         "root": "About us",
         "desc": "Our mission, history"
       },
@@ -77,6 +77,10 @@
     "address": "050060, Almaty, st. Zharokova, 284/3",
     "phone": "Phone",
     "socials": "We are in social networks"
+  },
+  "about-us": {
+    "history-title": "Our story",
+    "values-title": "Our Values"
   },
   "team": {
     "head": "Board of trustees | Our employees",
