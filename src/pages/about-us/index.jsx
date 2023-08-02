@@ -34,7 +34,6 @@ const About = ({ main_block, histories, values }) => {
   useEffect(() => {
     setBottom(containerRef?.current?.offsetHeight + 64)
   }, [])
-  console.log(values)
   return (
     <>
       <Head>
