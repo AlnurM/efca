@@ -107,7 +107,7 @@ const About = ({ main_block, histories, values }) => {
       <section className="py-12 flex flex-col">
         <h2 className="text-3xl font-bold text-primaryDark uppercase text-center">{t('about-us.values-title')}</h2>
         {values.map((item, index) => (
-          <div className={clsx('mt-12 min-h-[398px] flex', {
+          <div key={index} className={clsx('mt-12 min-h-[398px] flex', {
             ['flex-row']: index % 2 === 0,
             ['flex-row-reverse']: index % 2 > 0,
           })}>
