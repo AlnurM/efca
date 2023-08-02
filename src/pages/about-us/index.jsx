@@ -4,6 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { useRef, useState, useEffect } from 'react'
 import Slider from 'react-slick'
+import { Container } from '@/shared/ui'
 import { api } from '@/shared/api'
 import clsx from 'clsx'
 
@@ -104,28 +105,30 @@ const About = ({ main_block, histories, values }) => {
           </Slider>
         </div>
       </section>
-      <section className="py-12 flex flex-col">
-        <h2 className="text-3xl font-bold text-primaryDark uppercase text-center">{t('about-us.values-title')}</h2>
-        {values.map((item, index) => (
-          <div key={index} className={clsx('mt-12 min-h-[398px] flex', {
-            ['flex-row']: index % 2 === 0,
-            ['flex-row-reverse']: index % 2 > 0,
-          })}>
-            <div className="flex-1 flex justify-center items-center">
-              <div className="max-w-[400px] flex flex-col">
-                <span className="text-2xl font-semibold">{item.title}</span>
-                <span className="mt-5 font-medium">{item.text}</span>
+      <section className="py-12">
+        <Container className="flex flex-col">
+          <h2 className="text-3xl font-bold text-primaryDark uppercase text-center">{t('about-us.values-title')}</h2>
+          {values.map((item, index) => (
+            <div key={index} className={clsx('mt-12 min-h-[398px] flex', {
+              ['flex-row']: index % 2 === 0,
+              ['flex-row-reverse']: index % 2 > 0,
+            })}>
+              <div className="flex-1 flex justify-center items-center">
+                <div className="max-w-[400px] flex flex-col">
+                  <span className="text-2xl font-semibold">{item.title}</span>
+                  <span className="mt-5 font-medium">{item.text}</span>
+                </div>
+              </div>
+              <div className="relative overflow-hidden rounded-2xl flex-1">
+                <Image
+                  src={item.image}
+                  fill={true}
+                  alt={item.title}
+                />
               </div>
             </div>
-            <div className="relative overflow-hidden rounded-2xl flex-1">
-              <Image
-                src={item.image}
-                fill={true}
-                alt={item.title}
-              />
-            </div>
-          </div>
-        ))}
+          ))}
+        </Container>
       </section>
     </>
   )
