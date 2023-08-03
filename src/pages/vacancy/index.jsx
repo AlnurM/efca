@@ -14,8 +14,10 @@ const Vacancy = ({ vacancies }) => {
       </Head>
       <section className="py-10">
         <Container>
-          <h1 className="flex-[2] text-3xl font-bold text-primaryDark uppercase">{t('vacancy.head')}</h1>
-          <div className="flex-[6] ml-12">
+          <div>
+            <h1 className="text-3xl font-bold text-primaryDark uppercase">{t('vacancy.head')}</h1>
+          </div>
+          <div className="mt-6 ml-auto w-full max-w-[66%]">
             {vacancies.map(item => (
               <div key={item.id} className="p-6">
                 <div className="flex flex-col">

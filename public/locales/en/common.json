@@ -95,5 +95,9 @@
     "head": "Vacancy",
     "cta": "More",
     "active": "Active"
+  },
+  "researches": {
+    "head": "Researches",
+    "cta": "View"
   }
 }
