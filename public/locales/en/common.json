@@ -76,7 +76,8 @@
     "cta": "Subscribe",
     "address": "050060, Almaty, st. Zharokova, 284/3",
     "phone": "Phone",
-    "socials": "We are in social networks"
+    "socials": "We are in social networks",
+    "emailError": "Please enter a valid e-mail address!"
   },
   "about-us": {
     "history-title": "Our story",

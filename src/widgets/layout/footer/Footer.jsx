@@ -1,12 +1,31 @@
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
+import { useDebounce } from '@/shared/hooks'
+import { validateEmail } from '@/shared/lib'
 import { Container, Button, Icon } from '@/shared/ui'
+import { api } from '@/shared/api'
 
+const routes = [
+  { labelKey: 'fund', path: '/' },
+  { labelKey: 'activities.projects', path: '/projects' },
+  { labelKey: 'join.partners', path: '/partners' },
+  { labelKey: 'materials.for-business', path: '/for-business' },
+  { labelKey: 'materials.for-ngo', path: '/for-ngo' },
+  { labelKey: 'materials.news', path: '/news' },
+  { labelKey: 'join.contacts', path: '/contacts' },
+]
 const Footer = () => {
   const { t } = useTranslation()
+  const [email, setEmail] = useState('')
+  const isEmailValid = useDebounce(validateEmail(email), 500)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    await api.post('/mailing', {
+      email
+    })
+    setEmail('')
   }
   return (
     <>
@@ -20,12 +39,22 @@ const Footer = () => {
               Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor
             </p>
           </div>
-          <form className="flex-1 flex items-center" onSubmit={handleSubmit}>
-            <input className="py-3 px-6 min-w-[394px] h-fit font-semibold text-base rounded-[40px] outline-none" placeholder={t('footer.placeholder')} />
-            <Button className="ml-6">
-              {t('footer.cta')}
-            </Button>
-          </form>
+          <div className="flex-1 flex flex-col justify-center">
+            <form className="flex items-center" onSubmit={handleSubmit}>
+              <input 
+                placeholder={t('footer.placeholder')}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="py-3 px-6 min-w-[394px] h-fit font-semibold text-base rounded-[40px] outline-none" 
+              />
+              <Button className="ml-6" disabled={!isEmailValid}>
+                {t('footer.cta')}
+              </Button>
+            </form>
+            <span className="mt-2 pl-6 h-[24px] text-[red]">
+              {email.length > 3 && !isEmailValid && t('footer.emailError')}
+            </span>
+          </div>
         </Container>
       </section>
       <footer className="py-[68px] bg-darkened">
@@ -35,7 +64,11 @@ const Footer = () => {
               <div className="text-2xl font-semibold text-white">ФЕЦА Казахстан</div>
             </Link>
             <div>
-
+              {routes.map(route => (
+                <Link key={route.path} href={route.path}>
+                  <span className="ml-6 font-medium text-white">{t('menu.' + route.labelKey + '.root')}</span>
+                </Link>
+              ))}
             </div>
           </div>
           <div className="mt-10 w-full flex justify-between">
