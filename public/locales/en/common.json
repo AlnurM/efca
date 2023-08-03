@@ -99,5 +99,9 @@
   "researches": {
     "head": "Researches",
     "cta": "View"
+  },
+  "contacts": {
+    "head": "Contacts",
+    "address": "Address"
   }
 }

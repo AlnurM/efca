@@ -99,5 +99,9 @@
   "researches": {
     "head": "Зерттеулер",
     "cta": "Көру"
+  },
+  "contacts": {
+    "head": "Контактілер",
+    "address": "Адрес"
   }
 }
