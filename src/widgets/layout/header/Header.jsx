@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
+import { getRootPath } from '@/shared/lib'
 import { Container, Icon } from '@/shared/ui'
 import clsx from 'clsx'
 
@@ -123,7 +124,7 @@ const MenuItem = ({ route }) => {
       <div className="flex items-center cursor-pointer">
         <div className="w-4 h-4 rounded-full border-4 border-primaryDark font-medium">
           <div className={clsx('w-full h-full', {
-            ['bg-primaryDark']: routes?.find(f => f.labelKey === route.labelKey)?.children?.find(f => f.path === router.route)
+            ['bg-primaryDark']: routes?.find(f => f.labelKey === route.labelKey)?.children?.find(f => f.path === getRootPath(router.route))
           })} />
         </div>
         <span className="ml-2 text-black uppercase">{t('menu.' + route.labelKey + '.root')}</span>
