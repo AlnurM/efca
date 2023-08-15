@@ -94,7 +94,9 @@
   "vacancy": {
     "head": "Вакансии",
     "cta": "Подробнее",
-    "active": "Активен"
+    "active": "Активен",
+    "passive": "Не активен",
+    "links": "Ссылки"
   },
   "researches": {
     "head": "Исследования",
@@ -103,5 +105,10 @@
   "contacts": {
     "head": "Контакты",
     "address": "Адрес"
+  },
+  "grants-competetions": {
+    "head": "Конкурсы",
+    "active": "Активен",
+    "passive": "Не активен"
   }
 }

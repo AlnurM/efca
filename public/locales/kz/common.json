@@ -94,7 +94,9 @@
   "vacancy": {
     "head": "Жұмыс орындары",
     "cta": "Толығырақ",
-    "active": "Белсенді"
+    "active": "Активен",
+    "passive": "Не активен",
+    "links": "Сілтемелер"
   },
   "researches": {
     "head": "Зерттеулер",
@@ -103,5 +105,10 @@
   "contacts": {
     "head": "Контактілер",
     "address": "Адрес"
+  },
+  "grants-competetions": {
+    "head": "Конкурстар",
+    "active": "Активен",
+    "passive": "Не активен"
   }
 }

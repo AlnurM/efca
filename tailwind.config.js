@@ -17,6 +17,8 @@ module.exports = {
       secondaryDark: '#E4E1FF',
       active: '#A8FFC0',
       activeDark: '#008E30',
+      passive: '#FFE4E4',
+      passiveDark: '#FBB7E4',
       lightgray: '#6B6B6B',
       gray: '#979797',
       white: '#FFFFFF',

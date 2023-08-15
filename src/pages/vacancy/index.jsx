@@ -19,7 +19,7 @@ const Vacancy = ({ vacancies }) => {
           </div>
           <div className="mt-6 ml-auto w-full max-w-[66%]">
             {vacancies.map(item => (
-              <div key={item.id} className="p-6">
+              <div key={item.id} className="mb-6 p-6">
                 <div className="flex flex-col">
                   <h3 className="text-2xl text-primaryDark font-semibold">{item.title}</h3>
                   <p className="mt-4 text-lg font-medium">{item.text}</p>

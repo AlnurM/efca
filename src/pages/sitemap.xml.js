@@ -10,7 +10,8 @@ const pages = [
 ]
 
 const generateSiteMap = ({ 
-  vacancies 
+  vacancies,
+  contests
 }) => {
   const { i18n } = require('next-i18next.config')
   const locales = i18n.locales
@@ -19,6 +20,9 @@ const generateSiteMap = ({
   )
   const vacancyPaths = locales.flatMap((locale) =>
     vacancies.map((item) => `${locale === 'ru' ? '' : `/${locale}`}/vacancy/${item.id}`)
+  )
+  const contestPaths = locales.flatMap((locale) =>
+    vacancies.map((item) => `${locale === 'ru' ? '' : `/${locale}`}/grants-competetions/${item.id}`)
   )
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -39,6 +43,13 @@ const generateSiteMap = ({
         </url>
       `)).join('')
     }
+    ${
+      contestPaths.map(path => (`
+        <url>
+          <loc>${baseUrl}${path}</loc>
+        </url>
+      `)).join('')
+    }
    </urlset>
  `
 }
@@ -47,10 +58,13 @@ const SiteMap = () => {
 }
 
 export const getServerSideProps = async ({ res }) => {
-  const responseVacancies = await api.get('/vacancy')
-  const { vacancies } = responseVacancies.data
+  const [{ vacancies }, { contests }] = await Promise.all([
+    api.get('/vacancy'),
+    api.get('/contest'),
+  ]).then(res => res.map(item => item.data))
   const sitemap = generateSiteMap({
-    vacancies
+    vacancies,
+    contests,
   })
   res.setHeader('Content-Type', 'text/xml')
   res.write(sitemap)

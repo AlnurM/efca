@@ -8,7 +8,6 @@ import { api } from '@/shared/api'
 
 const Researches = ({ researches }) => {
   const { t } = useTranslation()
-  console.log(researches)
   return (
     <>
       <Head>
@@ -21,7 +20,7 @@ const Researches = ({ researches }) => {
           </div>
           <div className="mt-6 ml-auto w-full max-w-[66%]">
             {researches.map(item => (
-              <div key={item.id} className="min-h-[292px] flex">
+              <div key={item.id} className="mb-6 min-h-[292px] flex">
                 <div className="relative flex-1">
                   <Image
                     src={item.image}
@@ -68,7 +67,7 @@ export async function getStaticProps(context) {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
       ...response.data
-    },
+    }
   }
 }
 

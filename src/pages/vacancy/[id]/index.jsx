@@ -5,6 +5,7 @@ import React from 'react'
 import parse from 'html-react-parser'
 import { Container } from '@/shared/ui'
 import { api } from '@/shared/api'
+import clsx from 'clsx'
 
 const VacancyDetails = ({ data }) => {
   const { t } = useTranslation()
@@ -21,8 +22,11 @@ const VacancyDetails = ({ data }) => {
             <div className="px-7 py-3 w-fit rounded-[40px] bg-secondaryDark font-semibold text-primary">
               Дата открытия {data.date_from} {'->'} Дата закрытия {data.date_to}
             </div>
-            <div className="ml-6 px-7 py-3 w-fit rounded-[40px] bg-active font-semibold text-activeDark">
-              {t('vacancy.active')}
+            <div className={clsx('ml-6 px-7 py-3 w-fit rounded-[40px] font-semibold', {
+              ['bg-active text-activeDark']: data.is_active,
+              ['bg-passive text-passiveDark']: !data.is_active,
+            })}>
+              {data.is_active ? t('vacancy.active') : t('vacancy.passive')}
             </div>
           </div>
           <p className="mt-12 text-2xl font-medium">{data.text}</p>
@@ -33,6 +37,12 @@ const VacancyDetails = ({ data }) => {
           {data.blocks.map(item => (
             <ModifiedJSX key={item.id} html={item.html} />
           ))}
+        </Container>
+      </section>
+      <section className="py-6 bg-white">
+        <Container shrink className="flex-col">
+          <h3 className="text-2xl font-semibold">{t('vacancy.links')}:</h3>
+          <p className="mt-6 text-2xl font-medium">{data.link}</p>
         </Container>
       </section>
     </>

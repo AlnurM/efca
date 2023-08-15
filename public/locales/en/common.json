@@ -94,7 +94,9 @@
   "vacancy": {
     "head": "Vacancy",
     "cta": "More",
-    "active": "Active"
+    "active": "Active",
+    "passive": "Not active",
+    "links": "Links"
   },
   "researches": {
     "head": "Researches",
@@ -103,5 +105,10 @@
   "contacts": {
     "head": "Contacts",
     "address": "Address"
+  },
+  "grants-competetions": {
+    "head": "Competitions",
+    "active": "Active",
+    "passive": "Not active"
   }
 }
