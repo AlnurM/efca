@@ -3,10 +3,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import { Container } from '@/shared/ui'
+import { Container, Pagination } from '@/shared/ui'
 import { api } from '@/shared/api'
 
-const Researches = ({ researches }) => {
+const Researches = ({ data, count, currentPage }) => {
   const { t } = useTranslation()
   return (
     <>
@@ -19,7 +19,7 @@ const Researches = ({ researches }) => {
             <h1 className="text-3xl font-bold text-primaryDark uppercase">{t('researches.head')}</h1>
           </div>
           <div className="mt-6 ml-auto w-full max-w-[66%]">
-            {researches.map(item => (
+            {data.map(item => (
               <div key={item.id} className="mb-6 min-h-[292px] flex">
                 <div className="relative flex-1">
                   <Image
@@ -51,6 +51,10 @@ const Researches = ({ researches }) => {
                 </div>
               </div>
             ))}
+            <Pagination 
+              totalCount={count}
+              currentPage={currentPage}
+            />
           </div>
         </Container>
       </section>
@@ -58,15 +62,24 @@ const Researches = ({ researches }) => {
   )
 }
 
-export async function getStaticProps(context) {
-  const { locale } = context
-  const response = await api.get('/research', {
+export async function getServerSideProps(context) {
+  const { locale, query } = context
+  const response = await api.get(`/research?page=${query.page || 1}`, {
     headers: { 'Accept-Language' : locale }
   })
+  if (response.data.pages < query.page) {
+    return {
+      redirect: {
+        destination: `/researches?page=${response.data.pages}`,
+        statusCode: 302,
+      }
+    }
+  }
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      ...response.data
+      ...response.data,
+      currentPage: query.page || 1
     }
   }
 }

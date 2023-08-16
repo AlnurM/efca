@@ -1,12 +1,14 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import { Container } from '@/shared/ui'
+import { Container, Pagination } from '@/shared/ui'
 import { api } from '@/shared/api'
 
-const Vacancy = ({ vacancies }) => {
+const Vacancy = ({ data, count, currentPage }) => {
   const { t } = useTranslation()
+  const router = useRouter()
   return (
     <>
       <Head>
@@ -18,7 +20,7 @@ const Vacancy = ({ vacancies }) => {
             <h1 className="text-3xl font-bold text-primaryDark uppercase">{t('vacancy.head')}</h1>
           </div>
           <div className="mt-6 ml-auto w-full max-w-[66%]">
-            {vacancies.map(item => (
+            {data.map(item => (
               <div key={item.id} className="mb-6 p-6">
                 <div className="flex flex-col">
                   <h3 className="text-2xl text-primaryDark font-semibold">{item.title}</h3>
@@ -36,6 +38,11 @@ const Vacancy = ({ vacancies }) => {
                 </div>
               </div>
             ))}
+            <Pagination
+              totalCount={count}
+              currentPage={currentPage}
+              onPageChange={(page) => router.push({ pathname: '/vacancy', query: { page } })}
+            />
           </div>
         </Container>
       </section>
@@ -43,15 +50,24 @@ const Vacancy = ({ vacancies }) => {
   )
 }
 
-export async function getStaticProps(context) {
-  const { locale } = context
-  const response = await api.get('/vacancy', {
+export async function getServerSideProps(context) {
+  const { locale, query } = context
+  const response = await api.get(`/vacancy?page=${query.page || 1}`, {
     headers: { 'Accept-Language' : locale }
   })
+  if (response.data.pages < query.page) {
+    return {
+      redirect: {
+        destination: `/vacancy?page=${response.data.pages}`,
+        statusCode: 302,
+      }
+    }
+  }
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      ...response.data
+      ...response.data,
+      currentPage: query.page || 1
     },
   }
 }

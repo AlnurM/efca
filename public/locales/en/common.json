@@ -110,5 +110,21 @@
     "head": "Competitions",
     "active": "Active",
     "passive": "Not active"
+  },
+  "projects": {
+    "head": "Projects",
+    "select": "Select...",
+    "filter": {
+      "direction": "Direction",
+      "donor": "Donor",
+      "region": "Region",
+      "partners": "Partners",
+      "date": "Date",
+      "from": "from",
+      "to": "to",
+      "status": "Status",
+      "active": "Active",
+      "passive": "Finished"
+    }
   }
 }

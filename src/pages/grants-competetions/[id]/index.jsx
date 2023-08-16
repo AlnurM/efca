@@ -79,11 +79,10 @@ export async function getStaticPaths(context) {
   const response = await api.get('/contest', {
     headers: { 'Accept-Language' : locale }
   })
-  const { contests } = response.data
   const { i18n } = require('next-i18next.config')
   const locales = i18n.locales
   const paths = locales.flatMap((locale) =>
-    contests.map((item) => ({ params: { id: item.id.toString() }, locale }))
+    response.data.data.map((item) => ({ params: { id: item.id.toString() }, locale }))
   )
   return {
     paths,
