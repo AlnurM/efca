@@ -6,9 +6,10 @@ import { useTranslation } from 'next-i18next'
 import { Container, Pagination } from '@/shared/ui'
 import { api } from '@/shared/api'
 
-const Vacancy = ({ data, count, currentPage }) => {
+const Vacancy = ({ data, count, currentPage, ...rest }) => {
   const { t } = useTranslation()
   const router = useRouter()
+  console.log(rest)
   return (
     <>
       <Head>
@@ -63,6 +64,7 @@ export async function getServerSideProps(context) {
       }
     }
   }
+  console.log(locale)
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
