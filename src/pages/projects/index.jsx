@@ -4,9 +4,11 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import moment from 'moment'
 import Select from 'react-select'
 import InputMask from 'react-input-mask'
 import { Container, Pagination } from '@/shared/ui'
+import { removeEmpty } from '@/shared/lib'
 import { api } from '@/shared/api'
 import clsx from 'clsx'
 
@@ -23,6 +25,19 @@ const Projects = ({ data, regions, donors, partners }) => {
   const { t } = useTranslation()
   const { data: list } = data
   const router = useRouter()
+  const { query } = router
+  const enableFilter = (query) => {
+    router.push({ pathname: '/projects', query: removeEmpty({ ...router.query, ...query }) })
+  }
+
+  const handleChangeDate = (e) => {
+    const date = moment(e.target.value, 'DD.MM.YY')
+    if (date.isValid() && e.target.value.trim().length === 8) {
+      enableFilter({ [e.target.name]: date.format('YYYY-DD-MM') })
+    } else {
+      enableFilter({ [e.target.name]: null })
+    }
+  }
   return (
     <>
       <Head>
@@ -36,6 +51,7 @@ const Projects = ({ data, regions, donors, partners }) => {
               <div className="mb-6 flex flex-col">
                 <label className="mb-2 font-medium">{t('projects.filter.direction')}</label>
                 <Select 
+                  isClearable
                   placeholder={t('projects.select')}
                   oprions={[]}
                   styles={customStyles}
@@ -44,39 +60,54 @@ const Projects = ({ data, regions, donors, partners }) => {
               <div className="mb-6 flex flex-col">
                 <label className="mb-2 font-medium">{t('projects.filter.donor')}</label>
                 <Select 
+                  isClearable
                   placeholder={t('projects.select')}
-                  options={donors.map(item => ({ value: item.id, label: item.text }))} 
+                  options={donors}
+                  defaultValue={donors.find(f => f.value === Number(query.donor_id))}
                   styles={customStyles}
+                  onChange={(event) => enableFilter({ donor_id: event?.value || null })}
                 />
               </div>
               <div className="mb-6 flex flex-col">
                 <label className="mb-2 font-medium">{t('projects.filter.region')}</label>
                 <Select 
+                  isClearable
                   placeholder={t('projects.select')}
-                  options={regions.map(item => ({ value: item.id, label: item.text }))} 
+                  options={regions}
+                  defaultValue={regions.find(f => f.value === Number(query.region_id))}
                   styles={customStyles}
+                  onChange={(event) => enableFilter({ region_id: event?.value || null })}
                 />
               </div>
               <div className="mb-6 flex flex-col">
                 <label className="mb-2 font-medium">{t('projects.filter.partners')}</label>
                 <Select 
+                  isClearable
                   placeholder={t('projects.select')}
-                  options={partners.map(item => ({ value: item.id, label: item.text }))} 
+                  options={partners}
+                  defaultValue={partners.find(f => f.value === Number(query.partner_id))}
                   styles={customStyles}
+                  onChange={(event) => enableFilter({ partner_id: event?.value || null })}
                 />
               </div>
               <div className="flex flex-col">
                 <label className="mb-2 font-medium">{t('projects.filter.date')}</label>
                 <div className="flex items-center">
                   <span className="mr-2">{t('projects.filter.from')}</span>
-                  <InputMask 
+                  <InputMask
+                    name="date_from"
                     mask="99.99.99"
+                    maskChar=" "
                     className="outline-none py-2 px-3 w-24 font-medium rounded"
+                    onChange={handleChangeDate}
                   />
                   <span className="mx-2">{t('projects.filter.to')}</span>
-                  <InputMask 
+                  <InputMask
+                    name="date_to"
                     mask="99.99.99"
+                    maskChar=" "
                     className="outline-none py-2 px-3 w-24 font-medium rounded"
+                    onChange={handleChangeDate}
                   />
                 </div>
               </div>
@@ -84,11 +115,11 @@ const Projects = ({ data, regions, donors, partners }) => {
               <div className="flex flex-col">
                 <label className="mb-2 font-medium">{t('projects.filter.status')}</label>
                 <div className="flex items-center">
-                  <input type="checkbox" />
+                  <input type="checkbox" checked={query.is_active === 'true'} onChange={event => enableFilter({ is_active: event.target.checked || null })} />
                   <span className="ml-3 font-medium">{t('projects.filter.active')}</span>
                 </div>
                 <div className="mt-2 flex items-center">
-                  <input type="checkbox" />
+                  <input type="checkbox" checked={query.is_active === 'false'} onChange={event => enableFilter({ is_active: event.target.checked ? false : null })} />
                   <span className="ml-3 font-medium">{t('projects.filter.passive')}</span>
                 </div>
               </div>
@@ -148,15 +179,15 @@ const Projects = ({ data, regions, donors, partners }) => {
 
 export async function getServerSideProps(context) {
   const { locale, query } = context
-  console.log(query)
   const response = await api.get('/projects', {
+    params: query,
     headers: { 'Accept-Language' : locale }
   })
   const [regions, donors, partners] = await Promise.all([
     api.get('/reference/regions'),
     api.get('/reference/donors'),
     api.get('/reference/partners'),
-  ]).then(res => res.map(item => item.data.data))
+  ]).then(res => res.map(item => item.data.data.map(item => ({ value: item.id, label: item.text }))))
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
