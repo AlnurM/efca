@@ -64,11 +64,12 @@ const Team = ({ trustees, employees }) => {
           <div className="mt-10 w-full flex flex-wrap">
             {employees.map((item, index) => (
               <div 
+                key={'employee'+index}
                 className="relative mb-12 px-3 w-[calc(100%/6)] flex" 
                 onMouseEnter={() => setActiveCard(index)}
                 onMouseLeave={() => setActiveCard(null)}
               >
-                <div key={'employee'+index} className="flex flex-col justify-start items-center">
+                <div className="flex flex-col justify-start items-center">
                   <div className="relative overflow-hidden border-4 border-white w-[140px] h-[140px] rounded-full duration-150 hover:border-primary">
                     <Image
                       src={item.image}
