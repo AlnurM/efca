@@ -67,7 +67,8 @@ const GrantsCompetitions = ({ data, count, currentPage }) => {
 
 export async function getServerSideProps(context) {
   const { locale, query } = context
-  const response = await api.get(`/contest?page=${query.page || 1}`, {
+  const response = await api.get(`/contest`, {
+    params: query,
     headers: { 'Accept-Language' : locale }
   })
   if (response.data.pages < query.page) {

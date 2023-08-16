@@ -126,5 +126,21 @@
       "active": "Белсенді",
       "passive": "Аяқталды"
     }
+  },
+  "success-stories": {
+    "head": "Cәттілік оқиғалары",
+    "select": "Таңдау...",
+    "filter": {
+      "direction": "Бағыт",
+      "donor": "Донор",
+      "region": "Аймақ",
+      "partners": "Әріптестер",
+      "date": "Дата",
+      "from": "",
+      "to": "-",
+      "status": "Статус",
+      "active": "Белсенді",
+      "passive": "Аяқталды"
+    }
   }
 }

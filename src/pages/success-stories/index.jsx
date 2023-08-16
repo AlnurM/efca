@@ -21,12 +21,12 @@ const customStyles = {
     fontWeight: 500
   }),
 }
-const Projects = ({ data, count, currentPage, regions, donors, partners }) => {
+const SuccessStories = ({ data, count, currentPage, regions, donors, partners }) => {
   const { t } = useTranslation()
   const router = useRouter()
   const { query } = router
   const enableFilter = (query) => {
-    router.push({ pathname: '/projects', query: removeEmpty({ ...router.query, ...query }) })
+    router.push({ pathname: '/success-stories', query: removeEmpty({ ...router.query, ...query }) })
   }
 
   const handleChangeDate = (e) => {
@@ -40,27 +40,27 @@ const Projects = ({ data, count, currentPage, regions, donors, partners }) => {
   return (
     <>
       <Head>
-        <title>{t('projects.head')}</title>
+        <title>{t('success-stories.head')}</title>
       </Head>
       <section className="py-10">
         <Container className="flex">
           <aside className="flex-1 flex flex-col">
-            <h1 className="text-3xl font-bold text-primaryDark uppercase">{t('projects.head')}</h1>
+            <h1 className="mt-[6px] text-2xl font-bold text-primaryDark uppercase">{t('success-stories.head')}</h1>
             <div className="mt-6 p-3 rounded-lg bg-grayLight flex flex-col">
               <div className="mb-6 flex flex-col">
-                <label className="mb-2 font-medium">{t('projects.filter.direction')}</label>
+                <label className="mb-2 font-medium">{t('success-stories.filter.direction')}</label>
                 <Select 
                   isClearable
-                  placeholder={t('projects.select')}
+                  placeholder={t('success-stories.select')}
                   oprions={[]}
                   styles={customStyles}
                 />
               </div>
               <div className="mb-6 flex flex-col">
-                <label className="mb-2 font-medium">{t('projects.filter.donor')}</label>
+                <label className="mb-2 font-medium">{t('success-stories.filter.donor')}</label>
                 <Select 
                   isClearable
-                  placeholder={t('projects.select')}
+                  placeholder={t('success-stories.select')}
                   options={donors}
                   defaultValue={donors.find(f => f.value === Number(query.donor_id))}
                   styles={customStyles}
@@ -68,10 +68,10 @@ const Projects = ({ data, count, currentPage, regions, donors, partners }) => {
                 />
               </div>
               <div className="mb-6 flex flex-col">
-                <label className="mb-2 font-medium">{t('projects.filter.region')}</label>
+                <label className="mb-2 font-medium">{t('success-stories.filter.region')}</label>
                 <Select 
                   isClearable
-                  placeholder={t('projects.select')}
+                  placeholder={t('success-stories.select')}
                   options={regions}
                   defaultValue={regions.find(f => f.value === Number(query.region_id))}
                   styles={customStyles}
@@ -79,10 +79,10 @@ const Projects = ({ data, count, currentPage, regions, donors, partners }) => {
                 />
               </div>
               <div className="mb-6 flex flex-col">
-                <label className="mb-2 font-medium">{t('projects.filter.partners')}</label>
+                <label className="mb-2 font-medium">{t('success-stories.filter.partners')}</label>
                 <Select 
                   isClearable
-                  placeholder={t('projects.select')}
+                  placeholder={t('success-stories.select')}
                   options={partners}
                   defaultValue={partners.find(f => f.value === Number(query.partner_id))}
                   styles={customStyles}
@@ -90,9 +90,9 @@ const Projects = ({ data, count, currentPage, regions, donors, partners }) => {
                 />
               </div>
               <div className="flex flex-col">
-                <label className="mb-2 font-medium">{t('projects.filter.date')}</label>
+                <label className="mb-2 font-medium">{t('success-stories.filter.date')}</label>
                 <div className="flex items-center">
-                  <span className="mr-2">{t('projects.filter.from')}</span>
+                  <span className="mr-2">{t('success-stories.filter.from')}</span>
                   <InputMask
                     name="date_from"
                     mask="99.99.99"
@@ -100,7 +100,7 @@ const Projects = ({ data, count, currentPage, regions, donors, partners }) => {
                     className="outline-none py-2 px-3 w-24 font-medium rounded"
                     onChange={handleChangeDate}
                   />
-                  <span className="mx-2">{t('projects.filter.to')}</span>
+                  <span className="mx-2">{t('success-stories.filter.to')}</span>
                   <InputMask
                     name="date_to"
                     mask="99.99.99"
@@ -112,14 +112,14 @@ const Projects = ({ data, count, currentPage, regions, donors, partners }) => {
               </div>
               <div className="my-6 h-[1px] w-full bg-gray opacity-25" />
               <div className="flex flex-col">
-                <label className="mb-2 font-medium">{t('projects.filter.status')}</label>
+                <label className="mb-2 font-medium">{t('success-stories.filter.status')}</label>
                 <div className="flex items-center">
                   <input type="checkbox" checked={query.is_active === 'true'} onChange={event => enableFilter({ is_active: event.target.checked || null })} />
-                  <span className="ml-3 font-medium">{t('projects.filter.active')}</span>
+                  <span className="ml-3 font-medium">{t('success-stories.filter.active')}</span>
                 </div>
                 <div className="mt-2 flex items-center">
                   <input type="checkbox" checked={query.is_active === 'false'} onChange={event => enableFilter({ is_active: event.target.checked ? false : null })} />
-                  <span className="ml-3 font-medium">{t('projects.filter.passive')}</span>
+                  <span className="ml-3 font-medium">{t('success-stories.filter.passive')}</span>
                 </div>
               </div>
             </div>
@@ -128,7 +128,7 @@ const Projects = ({ data, count, currentPage, regions, donors, partners }) => {
             <div className="h-[38px]"></div>
             <div className="mt-6 flex flex-col">
               {data.map(item => (
-                <Link key={item.id} href={`/projects/${item.id}`}>
+                <Link key={item.id} href={`/success-stories/${item.id}`}>
                   <div className="mb-6 min-h-[264px] flex cursor-pointer">
                     <div className="relative flex-1">
                       <Image
@@ -178,14 +178,14 @@ const Projects = ({ data, count, currentPage, regions, donors, partners }) => {
 
 export async function getServerSideProps(context) {
   const { locale, query } = context
-  const response = await api.get('/projects', {
+  const response = await api.get('/stories', {
     params: query,
     headers: { 'Accept-Language' : locale }
   })
   if (response.data.pages < query.page) {
     return {
       redirect: {
-        destination: `/projects?page=${response.data.pages}`,
+        destination: `/success-stories?page=${response.data.pages}`,
         statusCode: 302,
       }
     }
@@ -205,4 +205,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default Projects
+export default SuccessStories

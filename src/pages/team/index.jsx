@@ -31,7 +31,6 @@ const settings = {
 const Team = ({ trustees, employees }) => {
   const { t } = useTranslation()
   const [activeCard, setActiveCard] = useState(null)
-  console.log(employees)
   return (
     <>
       <Head>
@@ -82,7 +81,9 @@ const Team = ({ trustees, employees }) => {
                   <span className="mt-2 text-sm font-medium text-center text-gray">{item.email}</span>
                 </div>
                 {activeCard === index && item.tooltip && (
-                  <div className="absolute z-[9999] top-[-48px] left-0 drop-shadow animate-[growUp_0.3s_ease-in-out_forwards]">
+                  <div 
+                    className="absolute z-[9999] bottom-[calc(100%-24px)] left-0 drop-shadow translate-y-full animate-[growUp_0.3s_ease-in-out_forwards]"
+                  >
                     <div className="p-7 min-w-[435px] bg-white rounded-2xl">
                       <p className="font-medium">{item.tooltip}</p>
                       {item.bottom_tooltip && (

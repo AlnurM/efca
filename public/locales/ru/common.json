@@ -126,5 +126,21 @@
       "active": "Активные",
       "passive": "Завершенные"
     }
+  },
+  "success-stories": {
+    "head": "Истории успеха",
+    "select": "Выбрать...",
+    "filter": {
+      "direction": "Направление",
+      "donor": "Донор",
+      "region": "Регион",
+      "partners": "Партнеры",
+      "date": "Дата",
+      "from": "c",
+      "to": "по",
+      "status": "Статус",
+      "active": "Активные",
+      "passive": "Завершенные"
+    }
   }
 }

@@ -126,5 +126,21 @@
       "active": "Active",
       "passive": "Finished"
     }
+  },
+  "success-stories": {
+    "head": "Success stories",
+    "select": "Select...",
+    "filter": {
+      "direction": "Direction",
+      "donor": "Donor",
+      "region": "Region",
+      "partners": "Partners",
+      "date": "Date",
+      "from": "from",
+      "to": "to",
+      "status": "Status",
+      "active": "Active",
+      "passive": "Finished"
+    }
   }
 }
