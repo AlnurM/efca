@@ -2,10 +2,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 import Slider from 'react-slick'
 import { Container } from '@/shared/ui'
 import { api } from '@/shared/api'
-import clsx from 'clsx'
 
 const settings = {
   dots: false,
@@ -30,6 +30,8 @@ const settings = {
 }
 const Team = ({ trustees, employees }) => {
   const { t } = useTranslation()
+  const [activeCard, setActiveCard] = useState(null)
+  console.log(employees)
   return (
     <>
       <Head>
@@ -61,17 +63,39 @@ const Team = ({ trustees, employees }) => {
           <h2 className="text-3xl font-bold uppercase text-primaryDark">{t('team.employees')}</h2>
           <div className="mt-10 w-full flex flex-wrap">
             {employees.map((item, index) => (
-              <div key={'employee'+index} className={clsx('mb-12 px-3 w-[calc(100%/6)] flex flex-col justify-start items-center')}>
-                <div className="relative overflow-hidden border-4 border-white w-[140px] h-[140px] rounded-full duration-150 hover:border-primary">
-                  <Image
-                    src={item.image}
-                    alt={item.full_name}
-                    fill={true}
-                  />
+              <div 
+                className="relative mb-12 px-3 w-[calc(100%/6)] flex" 
+                onMouseEnter={() => setActiveCard(index)}
+                onMouseLeave={() => setActiveCard(null)}
+              >
+                <div key={'employee'+index} className="flex flex-col justify-start items-center">
+                  <div className="relative overflow-hidden border-4 border-white w-[140px] h-[140px] rounded-full duration-150 hover:border-primary">
+                    <Image
+                      src={item.image}
+                      alt={item.full_name}
+                      fill={true}
+                    />
+                  </div>
+                  <span className="mt-4 font-medium">{item.full_name}</span>
+                  <span className="mt-2 text-sm font-medium text-center text-primary">{item.position}</span>
+                  <span className="mt-2 text-sm font-medium text-center text-gray">{item.email}</span>
                 </div>
-                <span className="mt-4 font-medium">{item.full_name}</span>
-                <span className="mt-2 text-sm font-medium text-center text-primary">{item.position}</span>
-                <span className="mt-2 text-sm font-medium text-center text-gray">{item.email}</span>
+                {activeCard === index && item.tooltip && (
+                  <div className="absolute z-[9999] top-[-48px] left-0 drop-shadow animate-[growUp_0.3s_ease-in-out_forwards]">
+                    <div className="p-7 min-w-[435px] bg-white rounded-2xl">
+                      <p className="font-medium">{item.tooltip}</p>
+                      {item.bottom_tooltip && (
+                        <>
+                          <div className="my-2 h-[2px] w-full bg-primaryLight" />
+                          <span className="text-sm font-medium">{item.bottom_tooltip}</span>
+                        </>
+                      )}
+                    </div>
+                    <svg className="relative top-[-2px] ml-[70px]" width="35" height="23" viewBox="0 0 35 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0.611328 0.505859H17.6113H34.6113L17.6113 22.3341L0.611328 0.505859Z" fill="white"/>
+                    </svg>
+                  </div>
+                )}
               </div>
             ))}
           </div>
