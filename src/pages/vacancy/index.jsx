@@ -56,6 +56,7 @@ export async function getServerSideProps(context) {
   const response = await api.get(`/vacancy?page=${query.page || 1}`, {
     headers: { 'Accept-Language' : locale }
   })
+  const translations = await serverSideTranslations(locale, ['common'])
   if (response.data.pages < query.page) {
     return {
       redirect: {
@@ -64,10 +65,9 @@ export async function getServerSideProps(context) {
       }
     }
   }
-  console.log(locale)
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...translations,
       ...response.data,
       currentPage: query.page || 1
     },
