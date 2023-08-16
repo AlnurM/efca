@@ -6,10 +6,9 @@ import { useTranslation } from 'next-i18next'
 import { Container, Pagination } from '@/shared/ui'
 import { api } from '@/shared/api'
 
-const Vacancy = ({ data, count, currentPage, ...rest }) => {
+const Vacancy = ({ data, count, currentPage }) => {
   const { t } = useTranslation()
   const router = useRouter()
-  console.log(rest)
   return (
     <>
       <Head>
@@ -56,7 +55,6 @@ export async function getServerSideProps(context) {
   const response = await api.get(`/vacancy?page=${query.page || 1}`, {
     headers: { 'Accept-Language' : locale }
   })
-  const translations = await serverSideTranslations(locale, ['common'])
   if (response.data.pages < query.page) {
     return {
       redirect: {
@@ -67,7 +65,7 @@ export async function getServerSideProps(context) {
   }
   return {
     props: {
-      ...translations,
+      ...(await serverSideTranslations(locale, ['common'])),
       ...response.data,
       currentPage: query.page || 1
     },
