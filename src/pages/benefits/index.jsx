@@ -6,17 +6,17 @@ import { useTranslation } from 'next-i18next'
 import { Container, Pagination } from '@/shared/ui'
 import { api } from '@/shared/api'
 
-const Researches = ({ data, count, currentPage }) => {
+const Benefits = ({ data, count, currentPage }) => {
   const { t } = useTranslation()
   return (
     <>
       <Head>
-        <title>{t('researches.head')}</title>
+        <title>{t('benefits.head')}</title>
       </Head>
       <section className="py-10">
         <Container className="flex flex-col">
           <div>
-            <h1 className="text-3xl font-bold text-primaryDark uppercase">{t('researches.head')}</h1>
+            <h1 className="text-3xl font-bold text-primaryDark uppercase">{t('benefits.head')}</h1>
           </div>
           <div className="mt-6 ml-auto w-full max-w-[66%]">
             {data.map(item => (
@@ -59,13 +59,13 @@ const Researches = ({ data, count, currentPage }) => {
 
 export async function getServerSideProps(context) {
   const { locale, query } = context
-  const response = await api.get(`/research?page=${query.page || 1}`, {
+  const response = await api.get(`/benefits?page=${query.page || 1}`, {
     headers: { 'Accept-Language' : locale }
   })
   if (response.data.pages < query.page) {
     return {
       redirect: {
-        destination: `/researches?page=${response.data.pages}`,
+        destination: `/benefits?page=${response.data.pages}`,
         statusCode: 302,
       }
     }
@@ -79,4 +79,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default Researches
+export default Benefits

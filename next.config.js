@@ -6,8 +6,6 @@ const nextConfig = {
   i18n,
   reactStrictMode: false,
   swcMinify: false,
-  localePath: path.resolve('./public/locales'),
-  localeStructure: '{{lng}}/{{ns}}',
   env: {
     BASE_URL: 'http://194.4.56.53/api'
   },

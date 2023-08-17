@@ -21,7 +21,7 @@ const customStyles = {
     fontWeight: 500
   }),
 }
-const SuccessStories = ({ data, count, currentPage, regions, donors, partners }) => {
+const SuccessStories = ({ data, count, currentPage, regions, donors, partners, directions }) => {
   const { t } = useTranslation()
   const router = useRouter()
   const { query } = router
@@ -32,7 +32,7 @@ const SuccessStories = ({ data, count, currentPage, regions, donors, partners })
   const handleChangeDate = (e) => {
     const date = moment(e.target.value, 'DD.MM.YY')
     if (date.isValid() && e.target.value.trim().length === 8) {
-      enableFilter({ [e.target.name]: date.format('YYYY-DD-MM') })
+      enableFilter({ [e.target.name]: date.format('YYYY-MM-DD') })
     } else {
       enableFilter({ [e.target.name]: null })
     }
@@ -51,9 +51,11 @@ const SuccessStories = ({ data, count, currentPage, regions, donors, partners })
                 <label className="mb-2 font-medium">{t('success-stories.filter.direction')}</label>
                 <Select 
                   isClearable
-                  placeholder={t('success-stories.select')}
-                  oprions={[]}
+                  placeholder={t('projects.select')}
+                  options={directions}
+                  defaultValue={directions.find(f => f.value === Number(query.direction_id))}
                   styles={customStyles}
+                  onChange={(event) => enableFilter({ direction_id: event?.value || null })}
                 />
               </div>
               <div className="mb-6 flex flex-col">
@@ -190,16 +192,17 @@ export async function getServerSideProps(context) {
       }
     }
   }
-  const [regions, donors, partners] = await Promise.all([
+  const [regions, donors, partners, directions] = await Promise.all([
     api.get('/reference/regions'),
     api.get('/reference/donors'),
     api.get('/reference/partners'),
+    api.get('/reference/directions'),
   ]).then(res => res.map(item => item.data.data.map(item => ({ value: item.id, label: item.text }))))
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
       ...response.data,
-      regions, donors, partners,
+      regions, donors, partners, directions,
       currentPage: query.page || 1
     }
   }

@@ -99,8 +99,10 @@
     "links": "Links"
   },
   "researches": {
-    "head": "Researches",
-    "cta": "View"
+    "head": "Researches"
+  },
+  "benefits": {
+    "head": "Benefits"
   },
   "contacts": {
     "head": "Contacts",
