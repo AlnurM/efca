@@ -76,7 +76,7 @@ const ModifiedJSX = ({ html }) => {
 
 export async function getStaticPaths(context) {
   const { locale } = context
-  const response = await api.get('/contest', {
+  const response = await api.get('/contest?need_full=true', {
     headers: { 'Accept-Language' : locale }
   })
   const { i18n } = require('next-i18next.config')

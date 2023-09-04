@@ -127,7 +127,13 @@
       "status": "Status",
       "active": "Active",
       "passive": "Finished"
-    }
+    },
+    "donor": "Donor",
+    "period": "Performance period",
+    "region": "Region",
+    "socials": "Social networks",
+    "more": "Learn more",
+    "contacts": "Contacts"
   },
   "success-stories": {
     "head": "Success stories",
