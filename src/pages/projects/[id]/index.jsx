@@ -9,7 +9,6 @@ import { api } from '@/shared/api'
 import clsx from 'clsx'
 
 const ProjectDetails = ({ data }) => {
-  console.log(data)
   const { t } = useTranslation()
   const block = {
     default: () => <></>,
@@ -41,7 +40,7 @@ const ProjectDetails = ({ data }) => {
               </div>
               <div className="mt-10 w-full flex flex-wrap">
                 {data.images.map((item, index) => (
-                  <div className="mr-8 relative w-[68px] h-[68px]">
+                  <div key={index} className="mr-8 relative w-[68px] h-[68px]">
                     <Image
                       src={item}
                       fill={true}
@@ -89,7 +88,7 @@ const ProjectDetails = ({ data }) => {
       return (
         <section>
           <Container shrink className="flex-col">
-            <h3 className="text-2xl font-medium">{parsedTitle.props.children}</h3>
+            <h3 className="text-2xl font-medium">{parsedTitle.props?.children}</h3>
             {data.images.length > 0 && (
               <div className="my-6 w-full flex flex-col">
                 <div className="overflow-hidden relative w-full h-auto rounded-lg">
@@ -180,8 +179,8 @@ const ProjectDetails = ({ data }) => {
         <Container shrink className="my-6 flex-col">
           <h3 className="font-semibold text-2xl">{t('projects.contacts')}:</h3>
           <div className="mt-6 flex">
-            {data.data.map(item => (
-              <div className="mr-8 flex flex-col justify-start items-center">
+            {data.data.map((item, index) => (
+              <div key={index} className="mr-8 flex flex-col justify-start items-center">
                 <div className="relative overflow-hidden border-4 border-white w-[140px] h-[140px] rounded-full duration-150 hover:border-primary">
                   <Image
                     src={item.image}
@@ -191,7 +190,6 @@ const ProjectDetails = ({ data }) => {
                 </div>
                 <span className="mt-4 font-medium">{item.full_name}</span>
                 <span className="mt-2 text-sm font-medium text-center text-primary">{item.position}</span>
-                <span className="mt-2 text-sm font-medium text-center text-gray">{item.email}</span>
               </div>
             ))}
           </div>
